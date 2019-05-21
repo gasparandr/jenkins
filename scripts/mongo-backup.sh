@@ -1,24 +1,9 @@
 #!/bin/bash
 
-echo "***** Validating arguments *****"
 
-if [ $# -eq 3 ]
-    then
-        echo "Number of arguments is valid."
-    else
-          echo "Invalid number of arguments provided!"
-                echo "Expected: 3"
-                echo "SERVICE"
-                echo "DB_NAME"
-                echo "BACKUP_PATH"
-          echo "Provided: $#"
-          exit 1
-fi
-
-
-SERVICE=$1
-DB_NAME=$2
-BACKUP_PATH=$3
+SERVICE="mongo"
+DB_NAME="boardme"
+BACKUP_PATH="./backup"
 
 echo "********* Getting container ID *********"
 
