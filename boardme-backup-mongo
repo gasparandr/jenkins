@@ -1,0 +1,42 @@
+pipeline {
+
+    agent any
+
+    environment {
+		HOST_NAME = 'Boardme'
+		HOST_ADDRESS = '139.59.181.162'
+    }
+
+    stages {
+
+        stage('Configure script') {
+			steps {
+			    sh 'sed -i -e \'s/\\r\$//\' scripts/mongo-backup.sh'
+
+                script {
+                    method_remote_backup()
+                }
+            }
+        }
+    }
+}
+
+
+def method_remote_backup() {
+	withCredentials([
+		sshUserPrivateKey(credentialsId: 'boardme_api_cluster_auth', usernameVariable: 'USER', keyFileVariable: 'KEYFILE')
+	]) {
+	
+		def remote = [:]
+		remote.user = "${USER}"
+		remote.host = "${HOST_ADDRESS}"
+		remote.name = "${HOST_NAME}"
+		remote.allowAnyHosts = true
+		remote.identityFile = "${KEYFILE}"
+		
+		
+		stage('Backup database') {
+		    sshScript remote: remote, script: "scripts/mongo-backup.sh mongo boardme ./backups"
+		}
+	}
+}
