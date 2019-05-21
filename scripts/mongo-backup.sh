@@ -15,7 +15,7 @@ DATE_AND_TIME=$(date '+%d-%m-%Y-%H:%M:%S')
 
 echo "********* Executing mongo dump *********"
 
-docker exec -it $CONTAINER_ID mongodump -d $DB_NAME
+docker exec $CONTAINER_ID mongodump -d $DB_NAME
 
 
 echo "******** Backing up data to $BACKUP_PATH/$DB_NAME/$DATE_AND_TIME ********"
