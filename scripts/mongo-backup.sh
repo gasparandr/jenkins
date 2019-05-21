@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-SERVICE="mongo"
+SERVICE="boardme_mongo"
 DB_NAME="boardme"
 BACKUP_PATH="./backup"
 
