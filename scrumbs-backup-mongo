@@ -5,6 +5,9 @@ pipeline {
     environment {
 		HOST_NAME = 'scrumbs'
 		HOST_ADDRESS = '165.227.168.111'
+        SERVICE='scrumbs_mongo'
+        DB_NAME='scrumbs-app'
+        BACKUP_PATH='./backup'
     }
 
     stages {
@@ -37,7 +40,7 @@ def method_remote_backup() {
 
 
 		stage('Backup database') {
-		    sshScript remote: remote, script: "scripts/mongo-backup.sh scrumbs_mongo scrumbs-app backup"
+		    sshScript remote: remote, script: "scripts/mongo-backup.sh $SERVICE $DB_NAME $BACKUP_PATH"
 		}
 	}
 }
