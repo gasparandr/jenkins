@@ -3,21 +3,9 @@
 
 echo "***** Validating arguments *****"
 
-if [ $# -eq 2 ]
-    then
-        echo "Number of arguments is valid."
-    else
-            echo "Invalid number of arguments provided!"
-	    echo "Expected: 3"
-	        echo "SERVICE NAME"
-	        echo "DATABASE_NAME"
-            echo "Provided: $#"
-            exit 1
-fi
 
-
-SERVICE=$1
-DB_NAME=$2
+SERVICE="scrumbs_mongo"
+DB_NAME="scrumbs-app"
 BACKUP_PATH="./backup"
 
 echo "********* Getting container ID *********"

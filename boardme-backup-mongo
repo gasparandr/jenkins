@@ -3,11 +3,8 @@ pipeline {
     agent any
 
     environment {
-		HOST_NAME = 'Boardme'
+		HOST_NAME = 'boardme'
 		HOST_ADDRESS = '139.59.181.162'
-		SERVICE='boardme_mongo'
-		DB_NAME='boardme'
-		BACKUP_PATH='./backup'
     }
 
     stages {
@@ -40,7 +37,7 @@ def method_remote_backup() {
 		
 		
 		stage('Backup database') {
-		    sshScript remote: remote, script: "scripts/mongo-backup.sh $SERVICE $DB_NAME"
+		    sshScript remote: remote, script: "scripts/boardme-backup.sh"
 		}
 	}
 }
