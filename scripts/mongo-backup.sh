@@ -1,9 +1,25 @@
 #!/bin/bash
 
 
-SERVICE="boardme_mongo"
-DB_NAME="boardme"
-BACKUP_PATH="./backup"
+echo "***** Validating arguments *****"
+
+if [ $# -eq 3 ]
+    then
+        echo "Number of arguments is valid."
+    else
+            echo "Invalid number of arguments provided!"
+	    echo "Expected: 3"
+	        echo "SERVICE NAME"
+	        echo "DATABASE_NAME"
+	        echo "BACKUP PATH"
+            echo "Provided: $#"
+            exit 1
+fi
+
+
+SERVICE=$1
+DB_NAME=$2
+BACKUP_PATH=$3
 
 echo "********* Getting container ID *********"
 
