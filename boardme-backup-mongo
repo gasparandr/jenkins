@@ -11,8 +11,8 @@ pipeline {
 
         stage('Configure script') {
 			steps {
-			    sh 'sed -i -e \'s/\\r\$//\' scripts/mongo-backup.sh'
-                sh 'chmod +x scripts/mongo-backup.sh'
+			    sh 'sed -i -e \'s/\\r\$//\' scripts/boardme-backup.sh'
+                sh 'chmod +x scripts/boardme-backup.sh'
 
                 script {
                     method_remote_backup()
