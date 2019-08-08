@@ -34,9 +34,9 @@ echo "********* Executing mongo dump *********"
 docker exec $CONTAINER_ID mongodump -d $DB_NAME
 
 
-echo "******** Backing up data to $BACKUP_PATH/$DB_NAME/$DATE_AND_TIME ********"
+echo "******** Backing up data to ./$BACKUP_PATH/$DB_NAME/$DATE_AND_TIME ********"
 
-OUTDIR=$BACKUP_PATH/$DB_NAME/$DATE_AND_TIME
+OUTDIR="./$BACKUP_PATH"
 
 mkdir -p $OUTDIR
 

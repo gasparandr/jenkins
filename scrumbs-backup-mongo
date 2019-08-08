@@ -36,7 +36,7 @@ def method_remote_backup() {
 
 
 		stage('Backup database') {
-		    sshScript remote: remote, script: "scripts/mongo-backup.sh scrumbs_mongo scrumbs-app ./backup"
+		    sshScript remote: remote, script: "scripts/mongo-backup.sh scrumbs_mongo scrumbs-app backup"
 		}
 	}
 }
