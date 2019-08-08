@@ -3,7 +3,7 @@
 
 echo "***** Validating arguments *****"
 
-if [ $# -eq 3 ]
+if [ $# -eq 2 ]
     then
         echo "Number of arguments is valid."
     else
@@ -11,7 +11,6 @@ if [ $# -eq 3 ]
 	    echo "Expected: 3"
 	        echo "SERVICE NAME"
 	        echo "DATABASE_NAME"
-	        echo "BACKUP PATH"
             echo "Provided: $#"
             exit 1
 fi
@@ -19,7 +18,7 @@ fi
 
 SERVICE=$1
 DB_NAME=$2
-BACKUP_PATH=$3
+BACKUP_PATH="./backup"
 
 echo "********* Getting container ID *********"
 
