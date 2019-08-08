@@ -9,13 +9,10 @@ pipeline {
 
     stages {
 
-        stage('Configure script') {
+        stage('SSH Auth') {
 			steps {
-			    sh 'sed -i -e \'s/\\r\$//\' scripts/scrumbs-backup.sh'
-                sh 'chmod +x scripts/scrumbs-backup.sh'
-
                 script {
-                    method_remote_backup()
+                    method_docker_cleanup()
                 }
             }
         }
@@ -23,7 +20,7 @@ pipeline {
 }
 
 
-def method_remote_backup() {
+def method_docker_cleanup() {
 	withCredentials([
 		sshUserPrivateKey(credentialsId: '6a21dfc5-0b96-4139-b7a6-0d6111966291', usernameVariable: 'USER', keyFileVariable: 'KEYFILE')
 	]) {
@@ -35,9 +32,8 @@ def method_remote_backup() {
 		remote.allowAnyHosts = true
 		remote.identityFile = "${KEYFILE}"
 
-
-		stage('Backup database') {
-		    sshScript remote: remote, script: "scripts/scrumbs-backup.sh"
+		stage('Docker Cleanup') {
+		    sshCommand remote: remote, command: "docker system prune -a -f"
 		}
 	}
 }
