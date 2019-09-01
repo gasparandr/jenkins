@@ -1,0 +1,39 @@
+pipeline {
+
+    agent any
+
+    environment {
+		HOST_NAME = 'ildiesign'
+		HOST_ADDRESS = '159.89.104.90'
+    }
+
+    stages {
+
+        stage('SSH Auth') {
+			steps {
+                script {
+                    method_docker_cleanup()
+                }
+            }
+        }
+    }
+}
+
+
+def method_docker_cleanup() {
+	withCredentials([
+		sshUserPrivateKey(credentialsId: 'ildiesign_andrei', usernameVariable: 'USER', keyFileVariable: 'KEYFILE')
+	]) {
+
+		def remote = [:]
+		remote.user = "${USER}"
+		remote.host = "${HOST_ADDRESS}"
+		remote.name = "${HOST_NAME}"
+		remote.allowAnyHosts = true
+		remote.identityFile = "${KEYFILE}"
+
+		stage('Docker Cleanup') {
+		    sshCommand remote: remote, command: "docker system prune -a -f"
+		}
+	}
+}
